@@ -28,7 +28,7 @@
       <div class="col-sm-8">
         <div class="no_message">
           <h1 style='color: #ccc'>Nothing yet😕</h1>
-          <div class="message_holder"></div>
+          <div class="inbox"></div>
         </div>
       </div>
       <div class="col-sm-4">
@@ -49,14 +49,14 @@
     <script>
       var socket = io.connect( 'http://' + document.domain + ':' + location.port )
       socket.on( 'connect', function() {
-        socket.emit( 'my event', {
+        socket.emit( 'default event', {
           data: 'User Connected'
         } )
         var form = $( 'form' ).on( 'submit', function( e ) {
           e.preventDefault()
           let user_name = $( 'input.username' ).val()
           let user_input = $( 'input.message' ).val()
-          socket.emit( 'my event', {
+          socket.emit( 'default event', {
             user_name : user_name,
             message : user_input
           } )
@@ -64,11 +64,11 @@
         } )
       } )
 
-      socket.on( 'my response', function( msg ) {
+      socket.on( 'response', function( msg ) {
         console.log( msg )
         if( typeof msg.user_name !== 'undefined' ) {
           $( 'h1' ).remove()
-          $( 'div.message_holder' ).append( '<div class="msg_bbl"><b style="color: #000">'+msg.user_name+'</b> '+msg.message+'</div>' )
+          $( 'div.inbox' ).append( '<div class="msg_bbl"><b style="color: #000">'+msg.user_name+'</b> '+msg.message+'</div>' )
         }
       } )
     </script>
