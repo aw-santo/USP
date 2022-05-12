@@ -15,7 +15,7 @@ def logRec():
 
 @socketio.on( 'default event' )
 def handleEvent( json ):
-  print( 'Message recieved: ' + str( json ) )
+  print( str( json ) )
   socketio.emit( 'response', json, callback=logRec)
 
 if __name__ == '__main__':
